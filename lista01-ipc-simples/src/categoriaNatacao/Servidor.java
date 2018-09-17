@@ -1,4 +1,4 @@
-package ReajustaSalárioIPC;
+package categoriaNatacao;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,10 +10,9 @@ public class Servidor {
 
     public static void main(String[] args) throws IOException {
 
-        double salarioAtual, salarioReajuste =0; 
-        int cargo;
-
-
+    	int idade;
+    	String categoria = null ;
+        
         ServerSocket servidor = new ServerSocket(5555);
         System.out.println("Porta 5555 aberta!");
 
@@ -27,21 +26,37 @@ public class Servidor {
         ObjectOutputStream resultado = new ObjectOutputStream(cliente.getOutputStream());
         ObjectInputStream dados = new ObjectInputStream(cliente.getInputStream());
 
-        cargo = dados.readInt();
-        salarioAtual = dados.readDouble();
+        idade = dados.readInt();
 
-        if (cargo == 1) {
+        if (idade >= 5 && idade <=7 ) {
 
-            //operador;
-            salarioReajuste = (salarioAtual*1.2);
+        	categoria = " infantil A ";
+        	
+        } else if (idade >= 8 && idade <=10 ) {
 
-        } else if (cargo == 2) {
+            
+        	categoria = " infantil B ";
+        	
+        }else if (idade >= 11 && idade <= 13 ) {
 
-            //programador;
-        	salarioReajuste = (salarioAtual*1.18);
+            
+        	categoria = " juvenil A ";
+        }
+        else if (idade >= 14 && idade <= 17 ) {
+
+            
+        	categoria = " juvenil B ";
+        }        else if (idade >= 18 ) {
+
+            
+        	categoria = " adulto";
+        }else {
+        	
+        	categoria = "Não há categoria para a idade informada";
+        	
         }
 
-        resultado.writeDouble(salarioReajuste);
+        resultado.writeUTF(categoria);
         resultado.flush();
 
         resultado.close();

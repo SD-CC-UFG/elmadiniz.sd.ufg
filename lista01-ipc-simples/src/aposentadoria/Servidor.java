@@ -1,4 +1,4 @@
-package ReajustaSalárioIPC;
+package aposentadoria;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,10 +10,9 @@ public class Servidor {
 
     public static void main(String[] args) throws IOException {
 
-        double salarioAtual, salarioReajuste =0; 
-        int cargo;
-
-
+    	int idade = 0, anosTrabalhados = 0;
+    	String aposentadoria;
+        
         ServerSocket servidor = new ServerSocket(5555);
         System.out.println("Porta 5555 aberta!");
 
@@ -27,21 +26,31 @@ public class Servidor {
         ObjectOutputStream resultado = new ObjectOutputStream(cliente.getOutputStream());
         ObjectInputStream dados = new ObjectInputStream(cliente.getInputStream());
 
-        cargo = dados.readInt();
-        salarioAtual = dados.readDouble();
+        idade = dados.readInt();
+        anosTrabalhados = dados.readInt();
 
-        if (cargo == 1) {
 
-            //operador;
-            salarioReajuste = (salarioAtual*1.2);
+        if (idade >= 60 && anosTrabalhados >= 25 ) {
 
-        } else if (cargo == 2) {
+        	aposentadoria = " poderá se aposentar";
+        	
+        } else if (idade >= 65 ) {
 
-            //programador;
-        	salarioReajuste = (salarioAtual*1.18);
+        	aposentadoria = " poderá se aposentar";
+            
+        	
+        }else if ( anosTrabalhados >= 30 ) {
+
+            
+        	aposentadoria = " poderá se aposentar";
+
         }
-
-        resultado.writeDouble(salarioReajuste);
+        else {
+            
+        	aposentadoria = " não poderá se aposentar";
+        
+        }     
+        resultado.writeUTF(aposentadoria);
         resultado.flush();
 
         resultado.close();
