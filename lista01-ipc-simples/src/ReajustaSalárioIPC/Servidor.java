@@ -39,12 +39,9 @@ public class Servidor {
 
             //programador;
         	salarioReajuste = (salarioAtual*1.18);
-
-        
         }
 
         resultado.writeDouble(salarioReajuste);
-        //resultado.writeChar(opr);
         resultado.flush();
 
         resultado.close();

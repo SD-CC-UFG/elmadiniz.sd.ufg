@@ -38,7 +38,6 @@ public class Cliente {
 
         double total = resultado.readDouble();
         opr = resultado.readChar();
-        //System.out.println("Total de " + num1 + opr + num2 + " = " + total);
         JOptionPane.showMessageDialog(null, "Total de " + num1 + opr + num2 + " = " + total);
 
         resultado.close();
